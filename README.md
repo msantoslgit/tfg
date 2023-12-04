@@ -12,4 +12,4 @@ Project to develop natural language to SQL querys using Python and OpenAI API
 
 
 - Hemos creado un bucle para poder preguntar al chat y que nos responda.
-- Se guarda las preguntas y 
+- Se guarda las preguntas y las respuestas para seguir la conversación
