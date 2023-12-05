@@ -16,9 +16,10 @@ def main():
     conversation = [{"role": "system",
                      "content": "You are a helpful assistant."}]
 
+    print("¿Sobre que quieres hablar? ")
     while True:
 
-        content = input("¿Sobre que quieres hablar? ")
+        content = input(" ")
 
         if content == "exit":
             close_session(client, model, conversation, max_tokens)
