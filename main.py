@@ -8,10 +8,6 @@ from database_functions import read_db_txt, get_available_db_directories #, get_
 
 def main():
 
-    # Example of usage get_db_directory
-    # example_path = get_db_directory()
-    # total_content = read_db_txt(example_path)
-
     # Example of usage get_available_db_directories
     selected_db_directory = get_available_db_directories()
     print(f"Directorio seleccionado: {selected_db_directory}")

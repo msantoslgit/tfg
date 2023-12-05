@@ -14,6 +14,9 @@ import os
 #     # Ahora puedes utilizar target_directory en tu código
 #     return target_directory
 
+# Example of usage get_db_directory - main.py
+# example_path = get_db_directory()
+# total_content = read_db_txt(example_path)
 
 def get_available_db_directories():
     # Obtén la ruta del directorio actual del script
