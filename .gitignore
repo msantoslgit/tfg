@@ -127,3 +127,15 @@ venv.bak/
 lightning_logs/
 MNIST
 .DS_Store
+
+
+#
+secret
+api_key
+
+# notebooks
+*.ipynb
+*.ipynb_checkpoints
+
+# docs
+*.docx
