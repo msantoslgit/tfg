@@ -17,3 +17,5 @@ Project to develop natural language to SQL querys using Python and OpenAI API
 - Establecer las tareas y definiciones en Trello 
 - - https://trello.com/b/7xhBEhmx/cha-t-fg
 - Empezar el módulo lector de la DB 
+- Hemos creado un método lector de la BD que pregunta por que carpeta dentro de source queremos acceder
+- Se leen todos los archivos .txt de la carpeta donde estarán las tablas. 

@@ -71,10 +71,13 @@ def read_db_txt(directory_path):
     # Initialize the string to concatenate the content
     concatenated_content = ""
 
+    print("List of files:")
     # Iterate through all files in the directory
     for file_name in os.listdir(directory_path):
         # Check if the file has a .txt extension
         if file_name.endswith(".txt"):
+
+            print(file_name)
             # Build the full file path
             file_path = os.path.join(directory_path, file_name)
 
@@ -82,4 +85,5 @@ def read_db_txt(directory_path):
             with open(file_path, 'r') as file:
                 concatenated_content += file.read() + '\n' + '\n'
 
+    print('\n')
     return concatenated_content
