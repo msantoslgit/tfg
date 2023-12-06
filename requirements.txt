@@ -1,0 +1,13 @@
+# maths
+pandas
+numpy
+
+## jupyter
+jupyter
+jupyterlab
+
+## ia
+openai
+
+## plot
+matplotlib
