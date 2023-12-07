@@ -3,8 +3,9 @@ pandas
 numpy
 
 ## jupyter
-# jupyter
-# jupyterlab
+jupyter
+jupyterlab
+jupytext
 
 ## ia
 openai

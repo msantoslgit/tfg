@@ -19,9 +19,9 @@ def add_context_response(conversation, response):
     conversation.append({"role": "assistant", "content": response})
 
 
-def close_session(client, model, conversation, max_tokens):
+def close_session(client, model, max_tokens):
     # Agrega un mensaje para cerrar la sesión
-    conversation.append({"role": "system", "content": "Session Ended."})
+    conversation = [{"role": "system", "content": "Close sesion."}]
 
     # Realiza una última llamada para cerrar la sesión
     completion = client.chat.completions.create(
@@ -31,5 +31,5 @@ def close_session(client, model, conversation, max_tokens):
     )
     # assistant_response = completion.choices[0].message['content']
     assistant_response = completion.choices[0].message.content
-    print(assistant_response)
+    print("Session closed")
 
