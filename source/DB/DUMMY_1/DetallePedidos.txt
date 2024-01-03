@@ -1,0 +1,9 @@
+CREATE TABLE DetallePedidos (
+    id_detalle INT PRIMARY KEY,
+    id_pedido INT,
+    id_producto INT,
+    cantidad INT,
+
+    FOREIGN KEY (id_pedido) REFERENCES Pedidos(id_pedido),
+    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto)
+);

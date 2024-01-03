@@ -1,0 +1,9 @@
+CREATE TABLE Pedidos (
+    id_pedido INT PRIMARY KEY,
+    id_centro INT,
+    id_cliente INT,
+    fecha_pedido DATE,
+
+    FOREIGN KEY (id_centro) REFERENCES Centros(id_centro),
+    FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente)
+);

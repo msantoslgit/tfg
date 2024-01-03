@@ -116,7 +116,7 @@ while True:
 # - Código para cerrar la sesión
 
 # %%
-# def close_session(client, model, conversation, max_tokens):
+# def close_session(client, model, max_tokens):
 #     # Agrega un mensaje para cerrar la sesión
 #     conversation = [{"role": "system", "content": "Close sesion."}]
 

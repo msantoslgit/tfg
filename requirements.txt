@@ -12,3 +12,14 @@ openai
 
 ## plot
 matplotlib
+
+## tiktoken
+tiktoken
+
+##Para el proyecto
+# pip uninstall openai
+# pip install openai
+
+##Para el curso de udemy
+# pip uninstall openai
+# pip install openai==0.28.0
