@@ -14,7 +14,7 @@
 # ---
 
 # %% [markdown]
-# ## Primer Turorial 
+# ## Comprovación del selector de DB
 
 # %%
 import sys 
@@ -34,3 +34,5 @@ from database_functions import get_available_db_directories
 
 selected_db_directory = get_available_db_directories()
 print(f"Directorio seleccionado: {selected_db_directory}")
+
+# %%

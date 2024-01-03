@@ -1,23 +1,5 @@
 import os
 
-
-# def get_db_directory():
-#     # Obtén la ruta del directorio actual del script
-#     script_directory = os.path.dirname(os.path.abspath(__file__))
-#
-#     # Construye la ruta al directorio un nivel por encima
-#     parent_directory = os.path.abspath(os.path.join(script_directory, ".."))
-#
-#     # Construye la ruta completa al directorio que necesitas
-#     target_directory = os.path.join(parent_directory,"tfg", "source", "DB", "DUMMY_1")
-#
-#     # Ahora puedes utilizar target_directory en tu código
-#     return target_directory
-
-# Example of usage get_db_directory - main.py
-# example_path = get_db_directory()
-# total_content = read_db_txt(example_path)
-
 def get_available_db_directories():
     # Obtén la ruta del directorio actual del script
     script_directory = os.path.dirname(os.path.abspath(__file__))
