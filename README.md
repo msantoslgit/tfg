@@ -23,4 +23,13 @@ Project to develop natural language to SQL querys using Python and OpenAI API
 ## Día 4/5 
 - Tutorial de OpenAI API 
 
+## Dia 6
+- Se han completado la clase TokenPricing para saber el coste que tendrá la consulta siguiente basado en el numero de tokens de pregunta más respuesta
+- Se ha completado la clase OpenAIChat, definiendo en una clase los métodos para ir enlazando llamadas a la api 
+- Se carga el modelo inicial de "Prompt" desde un fichero 
+- Los notebooks están al día 
 
+
+## 
+- 
+- Pensar en el testing / accuracy 

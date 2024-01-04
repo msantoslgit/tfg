@@ -18,6 +18,6 @@ with open(PATH_TO_SECRET, 'r') as f:
 
 API_KEY = secret_dict['API_KEY']
 
-PATH_TO_PROMPT = project_root_path / 'tfg' / 'source' / 'init_prompt' / 'sql_assistant.txt'
+PATH_TO_PROMPT = project_root_path / 'tfg' / 'source' / 'init_prompt' / 'sql_assistant_2.txt'
 with open(PATH_TO_PROMPT, 'r', encoding='utf-8') as f:
     init_prompt = f.read()
