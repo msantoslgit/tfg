@@ -60,7 +60,7 @@ conversation = [{"role": "system",                             #Asignamos como r
 #     return assistant_response
 
 # %%
-from openAI_functions import get_response
+from old.openAI_functions import get_response
 content = "Hola chat me llamo Mario"
 
 response = get_response(client, model, conversation, content, max_tokens)
@@ -86,7 +86,7 @@ print(response)
 #     conversation.append({"role": "assistant", "content": response})
 
 # %%
-from openAI_functions import add_context_response
+from old.openAI_functions import add_context_response
 
 add_context_response(conversation, response)
 
@@ -131,7 +131,7 @@ while True:
 #     print("Session closed")
 
 # %%
-from openAI_functions import close_session
+from old.openAI_functions import close_session
 
 close_session(client, model, conversation, max_tokens)
 
