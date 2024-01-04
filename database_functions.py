@@ -1,5 +1,6 @@
 import os
 
+
 def get_available_db_directories():
     # Obtén la ruta del directorio actual del script
     script_directory = os.path.dirname(os.path.abspath(__file__))

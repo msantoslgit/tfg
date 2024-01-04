@@ -1,33 +1,44 @@
-#Libraries
+# Libraries
 from openai import OpenAI
 
-
-#Files
+# Files
 from component import API_KEY, init_prompt
 from OpenAIChat import OpenAIChat
+from TokenPricing import TokenPricing
+from database_functions import get_available_db_directories, read_db_txt
+
 
 def main():
 
-    # # Example of usage get_available_db_directories
-    # selected_db_directory = get_available_db_directories()
-    # print(f"Directorio seleccionado: {selected_db_directory}")
-    #
-    # # Example of usage read_db_txt
-    # total_content = read_db_txt(selected_db_directory)
-    # print(total_content)
-
-
-    ## Ejemplo de uso de la funcion OpenAIChat
-
+    # Declaración de variables globales
     client = OpenAI(api_key=API_KEY)
     model = "gpt-3.5-turbo"
     max_tokens = 100
-
-    # Inicia la conversación con un mensaje de sistema
-    # init_conversation = [{"role": "system",
-    #                       "content": "You are a helpful assistant."}]
+    price_per_token = 0.002 / 1000
 
     print(init_prompt)
+
+    # Example of usage get_available_db_directories
+    selected_db_directory = get_available_db_directories()
+    print(f"Directorio seleccionado: {selected_db_directory}")
+
+    # Example of usage read_db_txt
+    total_content = read_db_txt(selected_db_directory)
+    print(total_content)
+
+    # Example of usage TokenPricing
+    token_pricing = TokenPricing(max_tokens, price_per_token, model)
+
+    num_tokens = token_pricing.num_tokens_from_string(init_prompt)
+    total_price = token_pricing.total_price(num_tokens)
+
+    print(f"Number of tokens: {num_tokens}")
+    print(f"Total price: ${total_price}")
+
+    # Ejemplo de uso de la funcion OpenAIChat
+
+    # Inicia la conversación con un mensaje de sistema
+
     init_conversation = [{"role": "system",
                           "content": {init_prompt}}]
 
