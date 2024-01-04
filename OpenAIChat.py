@@ -23,6 +23,9 @@ class OpenAIChat:
     def add_context_response(self, response):
         self.conversation.append({"role": "assistant", "content": response})
 
+    def add_context_user_content(self, content):
+        self.conversation.append({"role": "user", "content": content})
+
     def close_session(self):
         # Agrega un mensaje para cerrar la sesión
         self.conversation.append({"role": "system", "content": "Close sesion."})
@@ -35,3 +38,6 @@ class OpenAIChat:
         )
         assistant_response = completion.choices[0].message.content
         print("Session closed")
+
+    def print_conversation(self):
+        print(self.conversation)

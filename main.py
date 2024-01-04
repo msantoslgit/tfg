@@ -23,8 +23,8 @@ def main():
     print(f"Directorio seleccionado: {selected_db_directory}")
 
     # Example of usage read_db_txt
-    total_content = read_db_txt(selected_db_directory)
-    print(total_content)
+    db_content = read_db_txt(selected_db_directory)
+    print(db_content)
 
     # Example of usage TokenPricing
     token_pricing = TokenPricing(max_tokens, price_per_token, model)
@@ -38,26 +38,32 @@ def main():
     # Ejemplo de uso de la funcion OpenAIChat
 
     # Inicia la conversación con un mensaje de sistema
-
     init_conversation = [{"role": "system",
-                          "content": {init_prompt}}]
+                          "content": init_prompt}]
 
+    # Iniciamos la clase con el modelo, max_tokens, la API_KEY y la conversación inicial
     openai_chat = OpenAIChat(api_key=API_KEY, conversation=init_conversation,  model=model, max_tokens=max_tokens)
 
+    # Pasamos al modelo la base de datos que hemos cargado de los ficheros
+    response = openai_chat.get_response(db_content)
+    print(response)
 
-    print("¿Sobre que quieres hablar? ")
-    while True:
+    if response == "1":
 
-        content = input(" ")
+        while True:
 
-        if content == "exit":
-            openai_chat.close_session()
-            break
+            content = input(" ")
 
-        response = openai_chat.get_response(content)
+            if content == "exit":
+                openai_chat.close_session()
+                break
 
-        print(response)
-        openai_chat.add_context_response(response)
+            response = openai_chat.get_response(content)
+
+            print(response)
+            openai_chat.add_context_response(response)
+    else:
+        print("La carga inicial de la base de datos no ha funcionado")
 
 
 if __name__ == "__main__":
