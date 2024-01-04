@@ -2,7 +2,7 @@ from openai import OpenAI
 
 
 class OpenAIChat:
-    def __init__(self, api_key, conversation, model="gpt-3.5-turbo", max_tokens=50):
+    def __init__(self, api_key, conversation, model="gpt-3.5-turbo", max_tokens=50, temperature=0.5):
         """
         Initializes the OpenAIChat object with the required parameters.
 
@@ -16,6 +16,7 @@ class OpenAIChat:
         self.model = model
         self.max_tokens = max_tokens
         self.conversation = conversation
+        self.temperature = temperature
 
     def get_response(self, content):
         """
@@ -34,7 +35,8 @@ class OpenAIChat:
         completion = self.client.chat.completions.create(
             model=self.model,
             messages=self.conversation,
-            max_tokens=self.max_tokens
+            max_tokens=self.max_tokens,
+            temperature=self.temperature
         )
         # Extracting and returning the assistant's response
         assistant_response = completion.choices[0].message.content
