@@ -43,7 +43,7 @@ def main():
     response = openai_chat.get_response(db_content)
 
     if response == "1":
-        print("Initial loading of the database has succeded. Now you can ask anything related to the model")
+        print("Initial loading of the database has succeeded. Now you can ask anything related to the model")
         while True:
             content = input(" ")
 
