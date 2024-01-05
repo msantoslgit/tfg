@@ -1,4 +1,4 @@
-CREATE TABLE Centros (
+CREATE TABLE centros (
     id_centro INT PRIMARY KEY,
     nombre_centro VARCHAR(255)
 );

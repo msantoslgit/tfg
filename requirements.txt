@@ -16,6 +16,9 @@ matplotlib
 ## tiktoken
 tiktoken
 
+## sqlfluff
+sqlfluff
+
 ##Para el proyecto
 # pip uninstall openai
 # pip install openai

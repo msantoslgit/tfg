@@ -1,4 +1,4 @@
-CREATE TABLE Clientes (
+CREATE TABLE clientes (
     id_cliente INT PRIMARY KEY,
     nombre_cliente VARCHAR(255)
 );
