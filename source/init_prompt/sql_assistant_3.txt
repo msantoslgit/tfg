@@ -15,7 +15,15 @@ Input:
 ¿Cuál es el nombre del centro con el ID 3?
 Respuesta:
 "pregunta_adecuada": "1",
-"query": "SELECT nombre_centro FROM Centros WHERE id_centro = 3;",
+"query": "SELECT nombre_centro FROM centros WHERE id_centro = 3\n",
+"respuesta": "Comentarios sobre el porque de la query"
+
+
+Input:
+"¿Cuál es el producto más caro en la tabla de productos?"
+Respuesta:
+"pregunta_adecuada": "1",
+"query": "SELECT\n    nombre_producto,\n    precio\nFROM productos ORDER BY precio DESC LIMIT 1;\n",
 "respuesta": "Comentarios sobre el porque de la query"
 
 Input:
