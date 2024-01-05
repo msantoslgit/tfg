@@ -43,7 +43,9 @@ def main():
     response = openai_chat.get_response(db_content)
 
     if response == "1":
-        print("Initial loading of the database has succeeded. Now you can ask anything related to the model")
+        print("Initial loading of the database has succeeded. Now you can ask anything related to the model \n")
+        print("Enter 'exit' to close the current session or 'reset' to reload the DB and restart the chat \n")
+
         while True:
             content = input(" ")
 
@@ -51,9 +53,21 @@ def main():
                 openai_chat.close_session()
                 break
 
+            elif content == "reset":
+
+                response = openai_chat.reset_session([{"role": "system", "content": init_prompt}], db_content)
+
+                if response == '1':
+                    print("Reset session succesfully")
+                    continue
+                else:
+                    print("Failed triyng to reset the OpenAIChat")
+                    break
+
             response = openai_chat.get_response(content)
             print(response)
             openai_chat.add_context_response(response)
+
     else:
         print("Initial loading of the database has failed")
 

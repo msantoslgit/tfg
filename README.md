@@ -30,6 +30,12 @@ Project to develop natural language to SQL querys using Python and OpenAI API
 - Los notebooks están al día 
 
 
+## Dia 7
+- 
+- Se han creado las funciones en el notebook para SqlFluff
+- Creado el método para elegir que errores queremos cambiar 
+- Se han creado los notebooks para SqlFluff
+
 ## 
 - 
 - Pensar en el testing / accuracy 

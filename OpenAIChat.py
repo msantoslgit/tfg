@@ -80,6 +80,20 @@ class OpenAIChat:
         assistant_response = completion.choices[0].message.content
         print("Session closed")
 
+    def reset_session(self, new_conversation, db_content):
+        print("Trying to reset conversation")
+
+        # Crear una nueva instancia de OpenAIChat con la nueva conversación
+        new_instance = OpenAIChat(api_key=self.client.api_key, conversation=new_conversation, model=self.model,
+                                  max_tokens=self.max_tokens, temperature=self.temperature)
+
+        # Actualizar la instancia actual con la nueva instancia
+        self.__dict__.update(new_instance.__dict__)
+
+        # Add the db content to the conversation
+        return self.get_response(db_content)
+
+
     def print_conversation(self):
         """
         Prints the entire conversation history.
