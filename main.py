@@ -24,14 +24,14 @@ def main():
     db_content = read_db_txt(selected_db_directory)
     print(db_content)
 
-    # Example of using TokenPricing
-    token_pricing = TokenPricing(max_tokens, price_per_token, model)
-
-    num_tokens = token_pricing.num_tokens_from_string(init_prompt)
-    total_price = token_pricing.total_price(num_tokens)
-
-    print(f"Number of tokens: {num_tokens}")
-    print(f"Total price: ${total_price}")
+    # # Example of using TokenPricing
+    # token_pricing = TokenPricing(max_tokens, price_per_token, model)
+    #
+    # num_tokens = token_pricing.num_tokens_from_string(init_prompt)
+    # total_price = token_pricing.total_price(num_tokens)
+    #
+    # print(f"Number of tokens: {num_tokens}")
+    # print(f"Total price: ${total_price}")
 
     # Start the conversation with a system message
     init_conversation = [{"role": "system", "content": init_prompt}]
@@ -43,7 +43,7 @@ def main():
     response = openai_chat.get_response(db_content)
 
     if response == "1":
-        print("Initial loading of the database has succeeded. Now you can ask anything related to the model \n")
+        print("Initial loading of the database has succeeded. Now you can ask anything related to the model")
         print("Enter 'exit' to close the current session or 'reset' to reload the DB and restart the chat \n")
 
         while True:

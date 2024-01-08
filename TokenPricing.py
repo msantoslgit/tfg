@@ -14,6 +14,7 @@ class TokenPricing:
         self.max_tokens = max_tokens
         self.price_per_token = price_per_token
         self.model_name = model_name
+        self.total_cost = 0
 
     def num_tokens_from_string(self, string):
         """
@@ -42,4 +43,14 @@ class TokenPricing:
         - Total price based on the number of tokens and pricing information.
         """
         # Calculating the total price based on the number of tokens and pricing information
-        return num_tokens * self.price_per_token + self.max_tokens * self.price_per_token
+        total_price = num_tokens * self.price_per_token + self.max_tokens * self.price_per_token
+        return total_price
+
+    def add_cost(self, price):
+        self.total_cost += price
+
+    def print_total_cost(self):
+        print(self.total_cost)
+
+
+
