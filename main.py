@@ -13,7 +13,7 @@ def main():
     # Declaration of global variables
     client = OpenAI(api_key=API_KEY)
     model = "gpt-3.5-turbo"
-    max_tokens = 100
+    max_tokens = 200
     price_per_token = 0.002 / 1000
 
     # Usage of get_available_db_directories
@@ -46,6 +46,7 @@ def main():
     if response == "1":
         print("Initial loading of the database has succeeded. Now you can ask anything related to the model")
         print("Enter 'exit' to close the current session or 'reset' to reload the DB and restart the chat \n")
+        print("Enter 'cost' to know how much is the actual cost in dollars for all the request to the API \n")
 
         while True:
             content = input(" ")
