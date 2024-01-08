@@ -78,17 +78,11 @@ class TokenPricing:
 
         Note: The function relies on previously set attributes like max_tokens, price_per_token, and model_name.
 
-        Example usage:
-        - To add tokens without calculating cost:
-          process_string("Your text string here.", 0)
-
-        - To calculate the cost for the given text string:
-          process_string("Your text string here.", 1)
         """
 
         # Only for testing
-        print("Tokens before processing")
-        self.print_total_tokens()
+        # print("Tokens before processing")
+        # self.print_total_tokens()
 
         # Calculate the number of tokens in the input string
         num_tokens = self.num_tokens_from_string(input_string)
@@ -97,8 +91,8 @@ class TokenPricing:
         self.add_tokens_to_previous(num_tokens)
 
         # Only for testing
-        print("Tokens after processing")
-        self.print_total_tokens()
+        # print("Tokens after processing")
+        # self.print_total_tokens()
 
         # Check if cost calculation is required (call == 1)
         if call == 1:
@@ -111,10 +105,10 @@ class TokenPricing:
             # Print the cost for this API call
             print("The cost for this API call was: ")
             print(round(total_price, 7))
-        elif call == 0:
-            print("Add response had no cost, only increase the n_tokens")
-        elif call == 2:
-            print("Innit the model had no cost, only increase the n_tokens")
+        # elif call == 0:
+        #     print("Add response had no cost, only increase the n_tokens")
+        # elif call == 2:
+        #     print("Innit the model had no cost, only increase the n_tokens")
 
     def print_total_cost(self):
         """

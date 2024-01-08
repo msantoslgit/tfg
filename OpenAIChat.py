@@ -1,5 +1,23 @@
 from openai import OpenAI
 from TokenPricing import TokenPricing
+import json
+
+
+def is_json(response):
+    try:
+        json_object = json.loads(response)
+    except ValueError as e:
+        return False
+    return True
+
+
+def pretty_print_json(json_string):
+    try:
+        parsed_json = json.loads(json_string)
+        pretty_json = json.dumps(parsed_json, indent=4, sort_keys=True)
+        print(pretty_json)
+    except ValueError as e:
+        print(f"Error: {e}")
 
 
 class OpenAIChat:
@@ -112,4 +130,23 @@ class OpenAIChat:
         """
         self.token_pricing.print_total_cost()
 
+    def handle_responses(self, content):
+        """
+        Function to handle assistant responses and display them on the screen.
+
+        Parameters:
+        - self: Object of the OpenAIChat class.
+        - user_input: User input to generate a response.
+        """
+
+        response = self.get_response(content)
+
+        if is_json(content):
+            print("La respuesta es un JSON")
+            pretty_print_json(content)
+        else:
+            print("La respuesta es un JSON")
+            print(response)
+
+        self.add_context_response(response)
 

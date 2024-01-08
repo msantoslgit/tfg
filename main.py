@@ -44,9 +44,9 @@ def main():
     response = openai_chat.get_response(db_content)
 
     if response == "1":
-        print("Initial loading of the database has succeeded. Now you can ask anything related to the model")
-        print("Enter 'exit' to close the current session or 'reset' to reload the DB and restart the chat \n")
-        print("Enter 'cost' to know how much is the actual cost in dollars for all the request to the API \n")
+        print("Initial loading of the database has succeeded. Now you can ask anything related to the model \n")
+        print("Enter 'exit' to close the current session or 'reset' to reload the DB and restart the chat ")
+        print("Enter 'cost' to know how much is the actual cost in dollars for all the request to the API ")
 
         while True:
             content = input(" ")
@@ -70,9 +70,11 @@ def main():
                 openai_chat.print_total_cost()
                 continue
 
-            response = openai_chat.get_response(content)
-            print(response)
-            openai_chat.add_context_response(response)
+            openai_chat.handle_responses(content)
+
+            # response = openai_chat.get_response(content)
+            # print(response)
+            # openai_chat.add_context_response(response)
 
     else:
         print("Initial loading of the database has failed")
