@@ -65,6 +65,10 @@ def main():
                     print("Failed triyng to reset the OpenAIChat")
                     break
 
+            elif content == "cost":
+                openai_chat.print_total_cost()
+                continue
+
             response = openai_chat.get_response(content)
             print(response)
             openai_chat.add_context_response(response)

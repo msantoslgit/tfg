@@ -64,7 +64,6 @@ class OpenAIChat:
         # Processing cost from the call
         self.token_pricing.process_string(response, 0)
 
-
     def close_session(self):
         """
         Closes the conversation session by adding a system message and making a final call.
