@@ -158,7 +158,9 @@ class OpenAIChat:
             print("Valor de 'query':", query_value)
 
             if query_value!="":
-                self.sql_query_checker.corregir_errores(query_value)
+                query_value_corrected = self.sql_query_checker.corregir_errores(query_value)
+                print("La query corregida es:")
+                print (query_value_corrected)
 
         else:
             print("La respuesta NO es un JSON")
