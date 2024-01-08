@@ -64,14 +64,6 @@ class OpenAIChat:
         # Processing cost from the call
         self.token_pricing.process_string(response, 0)
 
-    # def add_context_user_content(self, content):
-    #     """
-    #     Adds user input content to the conversation context.
-    #
-    #     Parameters:
-    #     - content: User input content to be added to the conversation.
-    #     """
-    #     self.conversation.append({"role": "user", "content": content})
 
     def close_session(self):
         """
