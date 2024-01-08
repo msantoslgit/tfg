@@ -6,9 +6,11 @@ import json
 def is_json(response):
     try:
         json_object = json.loads(response)
+        print("succeeded")
+        return True
     except ValueError as e:
+        print(f"failed: {e}")
         return False
-    return True
 
 
 def pretty_print_json(json_string):
@@ -141,11 +143,11 @@ class OpenAIChat:
 
         response = self.get_response(content)
 
-        if is_json(content):
+        if is_json(response):
             print("La respuesta es un JSON")
-            pretty_print_json(content)
+            pretty_print_json(response)
         else:
-            print("La respuesta es un JSON")
+            print("La respuesta NO es un JSON")
             print(response)
 
         self.add_context_response(response)
