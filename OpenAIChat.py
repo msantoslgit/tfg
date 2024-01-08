@@ -3,7 +3,7 @@ from TokenPricing import TokenPricing
 
 
 class OpenAIChat:
-    def __init__(self, api_key, conversation, model="gpt-3.5-turbo", max_tokens=50, temperature=0.5):
+    def __init__(self, api_key, conversation, model="gpt-3.5-turbo", max_tokens=50, temperature=0.5, price_per_token=0):
         """
         Initializes the OpenAIChat object with the required parameters.
 
@@ -18,6 +18,11 @@ class OpenAIChat:
         self.max_tokens = max_tokens
         self.conversation = conversation
         self.temperature = temperature
+        self.price_per_token = price_per_token
+        self.token_pricing = TokenPricing(max_tokens, price_per_token, model)
+
+        content_value = conversation[0]["content"]
+        self.token_pricing.process_string(content_value, 2)
 
     def get_response(self, content):
         """
@@ -41,6 +46,10 @@ class OpenAIChat:
         )
         # Extracting and returning the assistant's response
         assistant_response = completion.choices[0].message.content
+
+        # Processing cost from the call
+        self.token_pricing.process_string(content, 1)
+
         return assistant_response
 
     def add_context_response(self, response):
@@ -52,14 +61,17 @@ class OpenAIChat:
         """
         self.conversation.append({"role": "assistant", "content": response})
 
-    def add_context_user_content(self, content):
-        """
-        Adds user input content to the conversation context.
+        # Processing cost from the call
+        self.token_pricing.process_string(response, 0)
 
-        Parameters:
-        - content: User input content to be added to the conversation.
-        """
-        self.conversation.append({"role": "user", "content": content})
+    # def add_context_user_content(self, content):
+    #     """
+    #     Adds user input content to the conversation context.
+    #
+    #     Parameters:
+    #     - content: User input content to be added to the conversation.
+    #     """
+    #     self.conversation.append({"role": "user", "content": content})
 
     def close_session(self):
         """
@@ -84,9 +96,12 @@ class OpenAIChat:
     def reset_session(self, new_conversation, db_content):
         print("Trying to reset conversation")
 
+        self.print_total_cost()
+
         # Crear una nueva instancia de OpenAIChat con la nueva conversación
         new_instance = OpenAIChat(api_key=self.client.api_key, conversation=new_conversation, model=self.model,
-                                  max_tokens=self.max_tokens, temperature=self.temperature)
+                                  max_tokens=self.max_tokens, temperature=self.temperature,
+                                  price_per_token=self.price_per_token)
 
         # Actualizar la instancia actual con la nueva instancia
         self.__dict__.update(new_instance.__dict__)
@@ -94,9 +109,16 @@ class OpenAIChat:
         # Add the db content to the conversation
         return self.get_response(db_content)
 
-
     def print_conversation(self):
         """
         Prints the entire conversation history.
         """
         print(self.conversation)
+
+    def print_total_cost(self):
+        """
+        Prints the entire cost.
+        """
+        self.token_pricing.print_total_cost()
+
+

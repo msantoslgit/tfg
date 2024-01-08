@@ -37,7 +37,8 @@ def main():
     init_conversation = [{"role": "system", "content": init_prompt}]
 
     # Initialize the OpenAIChat class with the model, max_tokens, API_KEY, and the initial conversation
-    openai_chat = OpenAIChat(api_key=API_KEY, conversation=init_conversation, model=model, max_tokens=max_tokens)
+    openai_chat = OpenAIChat(api_key=API_KEY, conversation=init_conversation, model=model,
+                             max_tokens=max_tokens, price_per_token=price_per_token)
 
     # Pass the loaded database content to the model
     response = openai_chat.get_response(db_content)
