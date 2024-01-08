@@ -11,7 +11,7 @@ Tiene que pasar el siguiente filtro y devolver TRUE.
 
 Tienen que ser un obligatoriamente un texto convertible a JSON con 3 parámetros
     "pregunta_adecuada". Si la pregunta tiene que ver con SQL o el modelo un 1, sino un 0
-    "query". En caso que sea un 1, aquí va la query SQL relacionada con la pregunta.
+    "query". En caso que sea un 1, aquí va la query SQL relacionada con la pregunta. Tiene que estar escrito en una única línea, sino rompe el JSON
     "respuesta". Aquí quiero los comentarios adicionales a la query. En caso que sea un 0 puedes poner por que no me respondes o por que la pregunta no es adecuada
 
 Ejemplos
@@ -29,7 +29,7 @@ Respuesta:
 Input:
 "¿Cuál es el producto más caro en la tabla de productos?"
 Respuesta:
-{"pregunta_adecuada": "1", "query": "SELECT\n    nombre_producto,\n    precio\nFROM productos ORDER BY precio DESC LIMIT 1;", "respuesta": "Comentarios sobre el porque de la query"}
+{"pregunta_adecuada": "1", "query": "SELECT    nombre_producto,    precio FROM productos ORDER BY precio DESC LIMIT 1;", "respuesta": "Comentarios sobre el porque de la query"}
 
 Input:
 ¿Quien es el autor de la teoria de la relatividad

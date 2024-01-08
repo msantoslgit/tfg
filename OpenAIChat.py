@@ -1,5 +1,6 @@
 from openai import OpenAI
 from TokenPricing import TokenPricing
+from SQLQueryChecker import SQLQueryChecker
 import json
 
 
@@ -40,6 +41,8 @@ class OpenAIChat:
         self.temperature = temperature
         self.price_per_token = price_per_token
         self.token_pricing = TokenPricing(max_tokens, price_per_token, model)
+
+        self.sql_query_checker = SQLQueryChecker
 
         content_value = conversation[0]["content"]
         self.token_pricing.process_string(content_value, 2)
@@ -153,6 +156,9 @@ class OpenAIChat:
             query_value = json_obj["query"]
             # Imprimir el resultado
             print("Valor de 'query':", query_value)
+
+            if query_value!="":
+                self.sql_query_checker.corregir_errores(query_value)
 
         else:
             print("La respuesta NO es un JSON")
