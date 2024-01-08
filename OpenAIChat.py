@@ -6,10 +6,10 @@ import json
 def is_json(response):
     try:
         json_object = json.loads(response)
-        print("succeeded")
+        # print("succeeded")
         return True
     except ValueError as e:
-        print(f"failed: {e}")
+        # print(f"failed: {e}")
         return False
 
 
@@ -146,6 +146,14 @@ class OpenAIChat:
         if is_json(response):
             print("La respuesta es un JSON")
             pretty_print_json(response)
+
+            # Cargar el objeto JSON
+            json_obj = json.loads(response)
+            # Obtener el valor asociado a la clave "query"
+            query_value = json_obj["query"]
+            # Imprimir el resultado
+            print("Valor de 'query':", query_value)
+
         else:
             print("La respuesta NO es un JSON")
             print(response)
