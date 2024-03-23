@@ -70,3 +70,31 @@ def read_db_txt(directory_path):
 
     print('\n')
     return concatenated_content
+
+
+def read_db_txt_window(directory_path):
+    # Check if the path is valid
+    if not os.path.isdir(directory_path):
+        return "The provided path is not a valid directory."
+
+    # Initialize the string to concatenate the content
+    concatenated_content = ""
+
+    print_content = "List of files loaded are:"
+    print("List of files:")
+    # Iterate through all files in the directory
+    for file_name in os.listdir(directory_path):
+        # Check if the file has a .txt extension
+        if file_name.endswith(".txt"):
+
+            print(file_name)
+            print_content = print_content + '\n' + file_name
+            # Build the full file path
+            file_path = os.path.join(directory_path, file_name)
+
+            # Read the content of the file and concatenate it to the string
+            with open(file_path, 'r') as file:
+                concatenated_content += file.read() + '\n' + '\n'
+
+    print('\n')
+    return print_content, concatenated_content

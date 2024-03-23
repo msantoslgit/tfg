@@ -2,7 +2,7 @@ import os
 import tkinter as tk
 from openai import OpenAI
 from OpenAIChat import OpenAIChat
-from database_functions import get_available_db_directories, read_db_txt
+from database_functions import read_db_txt_window
 from component import API_KEY, init_prompt
 from tkinter import Listbox, Scrollbar, END, VERTICAL, Y
 
@@ -67,7 +67,7 @@ class ChatInterface(tk.Tk):
         print('Here')
         print(self.directory_selection)
         # Cargar el contenido de la base de datos seleccionada
-        self.db_content = read_db_txt(self.directory_selection)
+        db_reader_output, self.db_content = read_db_txt_window(self.directory_selection)
 
         # Iniciar la conversación con un mensaje del sistema
         self.init_conversation = [{"role": "system", "content": init_prompt}]
@@ -88,9 +88,12 @@ class ChatInterface(tk.Tk):
         self.send_button.pack()
 
         # Inicializar la interfaz
-        self.update_output("Initial loading of the database has succeeded. Now you can ask anything related to the model\n"
-                           "Enter 'exit' to close the current session or 'reset' to reload the DB and restart the chat\n"
-                           "Enter 'cost' to know how much is the actual cost in dollars for all the request to the API\n")
+        self.update_output(
+                            db_reader_output
+                            + "\n" + "\n"
+                            "Initial loading of the database has succeeded. Now you can ask anything related to the model\n"
+                            "Enter 'exit' to close the current session or 'reset' to reload the DB and restart the chat\n"
+                            "Enter 'cost' to know how much is the actual cost in dollars for all the request to the API\n")
 
     def send_message(self):
         content = self.input_entry.get()
