@@ -1,84 +1,81 @@
-# Libraries
+import tkinter as tk
 from openai import OpenAI
-
-# Files
-from component import API_KEY, init_prompt
 from OpenAIChat import OpenAIChat
-from TokenPricing import TokenPricing
 from database_functions import get_available_db_directories, read_db_txt
+from component import API_KEY, init_prompt
 
 
-def main():
+class ChatInterface(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("OpenAI Chat Interface")
 
-    # Declaration of global variables
-    client = OpenAI(api_key=API_KEY)
-    model = "gpt-3.5-turbo"
-    max_tokens = 200
-    price_per_token = 0.002 / 1000
+        # Inicialización de variables globales
+        self.client = OpenAI(api_key=API_KEY)
+        self.model = "gpt-3.5-turbo"
+        self.max_tokens = 200
+        self.price_per_token = 0.002 / 1000
 
-    # Usage of get_available_db_directories
-    selected_db_directory = get_available_db_directories()
-    print(f"Selected directory: {selected_db_directory}")
+        # Cargar el contenido de la base de datos
+        self.selected_db_directory = get_available_db_directories()
+        self.db_content = read_db_txt(self.selected_db_directory)
 
-    # Usage of read_db_txt
-    db_content = read_db_txt(selected_db_directory)
-    print(db_content)
+        # Iniciar la conversación con un mensaje del sistema
+        self.init_conversation = [{"role": "system", "content": init_prompt}]
 
-    # # Example of using TokenPricing
-    # token_pricing = TokenPricing(max_tokens, price_per_token, model)
-    #
-    # num_tokens = token_pricing.num_tokens_from_string(init_prompt)
-    # total_price = token_pricing.total_price(num_tokens)
-    #
-    # print(f"Number of tokens: {num_tokens}")
-    # print(f"Total price: ${total_price}")
+        # Inicializar la clase OpenAIChat
+        self.openai_chat = OpenAIChat(api_key=API_KEY, conversation=self.init_conversation,
+                                      model=self.model, max_tokens=self.max_tokens,
+                                      price_per_token=self.price_per_token)
 
-    # Start the conversation with a system message
-    init_conversation = [{"role": "system", "content": init_prompt}]
+        # Crear elementos de la interfaz
+        self.output_text = tk.Text(self, height=20, width=60)
+        self.output_text.pack(expand=True, fill=tk.BOTH)  # Expandir tanto horizontal como verticalmente
 
-    # Initialize the OpenAIChat class with the model, max_tokens, API_KEY, and the initial conversation
-    openai_chat = OpenAIChat(api_key=API_KEY, conversation=init_conversation, model=model,
-                             max_tokens=max_tokens, price_per_token=price_per_token)
+        self.input_entry = tk.Entry(self, width=50)
+        self.input_entry.pack(fill=tk.X)  # Expandir solo horizontalmente
 
-    # Pass the loaded database content to the model
-    response = openai_chat.get_response(db_content)
+        self.send_button = tk.Button(self, text="Enviar", command=self.send_message)
+        self.send_button.pack()
 
-    if response == "1":
-        print("Initial loading of the database has succeeded. Now you can ask anything related to the model \n")
-        print("Enter 'exit' to close the current session or 'reset' to reload the DB and restart the chat ")
-        print("Enter 'cost' to know how much is the actual cost in dollars for all the request to the API ")
+        # Inicializar la interfaz
+        self.update_output("Initial loading of the database has succeeded. Now you can ask anything related to the model\n"
+                           "Enter 'exit' to close the current session or 'reset' to reload the DB and restart the chat\n"
+                           "Enter 'cost' to know how much is the actual cost in dollars for all the request to the API\n")
 
-        while True:
-            content = input(" ")
+    def send_message(self):
+        content = self.input_entry.get()
+        self.input_entry.delete(0, tk.END)
 
-            if content == "exit":
-                openai_chat.close_session()
-                break
+        if content == "exit":
+            self.openai_chat.close_session()
+            self.destroy()
 
-            elif content == "reset":
+        elif content == "reset":
+            response = self.openai_chat.reset_session([{"role": "system", "content": init_prompt}], self.db_content)
+            if response == '1':
+                self.update_output("Reset session successfully\n")
+            else:
+                self.update_output("Failed trying to reset the OpenAIChat\n")
 
-                response = openai_chat.reset_session([{"role": "system", "content": init_prompt}], db_content)
+        elif content == "cost":
+            cost_message = f"Actual cost in dollars: {self.openai_chat.get_total_cost():.2f}\n"
+            self.update_output(cost_message)
 
-                if response == '1':
-                    print("Reset session succesfully")
-                    continue
-                else:
-                    print("Failed triyng to reset the OpenAIChat")
-                    break
+        else:
+            # response = self.openai_chat.get_response(content)
+            response = 'Respuesta ejemplo api'
+            self.update_output(response + "\n")
 
-            elif content == "cost":
-                openai_chat.print_total_cost()
-                continue
-
-            openai_chat.handle_responses(content)
-
-            # response = openai_chat.get_response(content)
-            # print(response)
-            # openai_chat.add_context_response(response)
-
-    else:
-        print("Initial loading of the database has failed")
+    def update_output(self, text):
+        # Limpiar el contenido existente
+        self.output_text.delete(1.0, tk.END)
+        # Insertar el nuevo texto
+        self.output_text.insert(tk.END, text)
+        # Asegurarse de que la nueva entrada sea visible
+        self.output_text.see(tk.END)
 
 
 if __name__ == "__main__":
-    main()
+    app = ChatInterface()
+    app.mainloop()

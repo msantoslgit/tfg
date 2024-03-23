@@ -124,5 +124,28 @@ class TokenPricing:
         # Print the total cost rounded to 7 decimal places
         print(round(self.total_cost, 7))
 
+    def get_total_cost(self):
+        """
+        Return total cost accumulated during the API session.
+
+        This function Returns the total cost incurred during the API session.
+        The total cost is rounded to 7 decimal places for better readability.
+
+        """
+        # Print the total cost rounded to 7 decimal places
+        return round(self.total_cost, 7)
+
     def print_total_tokens(self):
         print(self.previous_tokens)
+
+
+
+
+    # # Example of using TokenPricing
+    # token_pricing = TokenPricing(max_tokens, price_per_token, model)
+    #
+    # num_tokens = token_pricing.num_tokens_from_string(init_prompt)
+    # total_price = token_pricing.total_price(num_tokens)
+    #
+    # print(f"Number of tokens: {num_tokens}")
+    # print(f"Total price: ${total_price}")

@@ -135,6 +135,12 @@ class OpenAIChat:
         """
         self.token_pricing.print_total_cost()
 
+    def get_total_cost(self):
+        """
+        Prints the entire cost.
+        """
+        return self.token_pricing.get_total_cost()
+
     def handle_responses(self, content):
         """
         Function to handle assistant responses and display them on the screen.
