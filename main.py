@@ -1,8 +1,51 @@
+import os
 import tkinter as tk
 from openai import OpenAI
 from OpenAIChat import OpenAIChat
 from database_functions import get_available_db_directories, read_db_txt
 from component import API_KEY, init_prompt
+from tkinter import Listbox, Scrollbar, END, VERTICAL, Y
+
+class DirectorySelectionWindow(tk.Toplevel):
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.parent = parent
+        self.title("Seleccionar Directorio")
+
+        # Obtener el directorio de la base de datos disponible
+        self.get_available_db_directories()
+
+    def get_available_db_directories(self):
+        selected_directory = None
+
+        def on_select():
+            nonlocal selected_directory
+            selection = listbox.curselection()
+            if selection:
+                selected_index = selection[0]
+                selected_directory = os.path.join(choices_directory, available_directories[selected_index])
+                self.parent.directory_selection = selected_directory
+                self.destroy()  # Cerrar la ventana de selección
+
+
+        script_directory = os.path.dirname(os.path.abspath(__file__))
+        parent_directory = os.path.abspath(os.path.join(script_directory, ".."))
+        choices_directory = os.path.join(parent_directory, "tfg", "source", "DB")
+        available_directories = [d for d in os.listdir(choices_directory) if
+                                 os.path.isdir(os.path.join(choices_directory, d))]
+
+        listbox = Listbox(self, selectmode=tk.SINGLE)
+        listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+        for directory in available_directories:
+            listbox.insert(END, directory)
+
+        scrollbar = Scrollbar(self, orient=VERTICAL, command=listbox.yview)
+        scrollbar.pack(side=tk.RIGHT, fill=Y)
+        listbox.config(yscrollcommand=scrollbar.set)
+
+        select_button = tk.Button(self, text="Seleccionar", command=on_select)
+        select_button.pack()
 
 
 class ChatInterface(tk.Tk):
@@ -15,10 +58,16 @@ class ChatInterface(tk.Tk):
         self.model = "gpt-3.5-turbo"
         self.max_tokens = 200
         self.price_per_token = 0.002 / 1000
+        self.directory_selection = None
 
-        # Cargar el contenido de la base de datos
-        self.selected_db_directory = get_available_db_directories()
-        self.db_content = read_db_txt(self.selected_db_directory)
+        # Abrir la ventana de selección del directorio de la base de datos
+        self.directory_selection_window = DirectorySelectionWindow(self)
+        self.wait_window(self.directory_selection_window)
+
+        print('Here')
+        print(self.directory_selection)
+        # Cargar el contenido de la base de datos seleccionada
+        self.db_content = read_db_txt(self.directory_selection)
 
         # Iniciar la conversación con un mensaje del sistema
         self.init_conversation = [{"role": "system", "content": init_prompt}]
@@ -74,7 +123,6 @@ class ChatInterface(tk.Tk):
         self.output_text.insert(tk.END, text)
         # Asegurarse de que la nueva entrada sea visible
         self.output_text.see(tk.END)
-
 
 if __name__ == "__main__":
     app = ChatInterface()
