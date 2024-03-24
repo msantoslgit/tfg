@@ -115,9 +115,14 @@ class ChatInterface(tk.Tk):
             self.update_output(cost_message)
 
         else:
-            response = self.openai_chat.get_response(content)
+            # response = self.openai_chat.get_response(content)
+            # # response = 'Respuesta ejemplo api'
+            # formatted_json_string = response.replace(', "', ',\n "')
+            # self.update_output(formatted_json_string + "\n")
+
+            response, query_corrected = self.openai_chat.handle_responses_window(content)
             # response = 'Respuesta ejemplo api'
-            formatted_json_string = response.replace(', "', ',\n "')
+            formatted_json_string = response.replace(', "', ',\n "') + "\n" +  "\n" + "The corrected query is: " + "\n" +  query_corrected
             self.update_output(formatted_json_string + "\n")
 
     def update_output(self, text):

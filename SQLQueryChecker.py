@@ -123,3 +123,36 @@ class SQLQueryChecker:
             sql_query = sqlfluff.fix(sql_query, dialect=dialect, rules=[codigo])
 
         return sql_query
+
+
+    @staticmethod
+    def corregir_errores_auto(sql_query, dialect="mysql"):
+        """
+        Corrige errores en una consulta SQL dada.
+
+        Args:
+            sql_query (str): La consulta SQL a corregir.
+            dialect (str): El dialecto SQL a utilizar. Por defecto, es "mysql".
+
+        Returns:
+            str: La consulta SQL corregida.
+        """
+        print("\nQuery inicial:")
+        print(sql_query)
+        print("\n")
+
+        # Análisis de la query
+        result = SQLQueryChecker.check_sql_syntax(sql_query)
+
+        # Obtener los errores
+        errores = SQLQueryChecker.obtener_codigo_y_descripcion(result)
+
+        # Inicializar lista de errores a corregir
+        errores_a_corregir = errores
+
+        print(f"\nCorrigiendo errores: {errores_a_corregir}")
+        # Corregir los errores seleccionados
+        for codigo, descripcion in errores_a_corregir:
+            sql_query = sqlfluff.fix(sql_query, dialect=dialect, rules=[codigo])
+
+        return sql_query

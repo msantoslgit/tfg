@@ -174,3 +174,40 @@ class OpenAIChat:
 
         self.add_context_response(response)
 
+        return response
+
+    def handle_responses_window(self, content):
+        """
+        Function to handle assistant responses and display them on the screen.
+
+        Parameters:
+        - self: Object of the OpenAIChat class.
+        - user_input: User input to generate a response.
+        """
+
+        response = self.get_response(content)
+        query_value_corrected = "No se ha podido corregir la query"
+
+        if is_json(response):
+            print("La respuesta es un JSON")
+            pretty_print_json(response)
+
+            # Cargar el objeto JSON
+            json_obj = json.loads(response)
+            # Obtener el valor asociado a la clave "query"
+            query_value = json_obj["query"]
+            # Imprimir el resultado
+            print("Valor de 'query':", query_value)
+
+            if query_value != "":
+                query_value_corrected = self.sql_query_checker.corregir_errores_auto(query_value)
+                print("La query corregida es:")
+                print(query_value_corrected)
+
+        else:
+            print("La respuesta NO es un JSON")
+            print(response)
+
+        self.add_context_response(response)
+
+        return response, query_value_corrected
