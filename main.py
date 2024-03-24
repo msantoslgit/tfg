@@ -3,8 +3,9 @@ import tkinter as tk
 from openai import OpenAI
 from OpenAIChat import OpenAIChat
 from database_functions import read_db_txt_window
-from component import API_KEY, init_prompt
+from component import API_KEY, init_prompt, init_database_message, instructions
 from tkinter import Listbox, Scrollbar, END, VERTICAL, Y
+
 
 class DirectorySelectionWindow(tk.Toplevel):
     def __init__(self, parent):
@@ -64,8 +65,6 @@ class ChatInterface(tk.Tk):
         self.directory_selection_window = DirectorySelectionWindow(self)
         self.wait_window(self.directory_selection_window)
 
-        print('Here')
-        print(self.directory_selection)
         # Cargar el contenido de la base de datos seleccionada
         db_reader_output, self.db_content = read_db_txt_window(self.directory_selection)
 
@@ -84,40 +83,42 @@ class ChatInterface(tk.Tk):
         self.input_entry = tk.Entry(self, width=50)
         self.input_entry.pack(fill=tk.X)  # Expandir solo horizontalmente
 
-        self.send_button = tk.Button(self, text="Enviar", command=self.send_message)
-        self.send_button.pack()
+        self.send_button = tk.Button(self, text="Send", command=self.send_message)
+        self.send_button.pack(side=tk.LEFT)  # Alinea el botón a la izquierda
+
+        self.instructions_button = tk.Button(self, text="Instructions", command=self.print_instructions)
+        self.instructions_button.pack(side=tk.RIGHT)  # Alinea el botón a la derecha
 
         # Inicializar la interfaz
         self.update_output(
-                            db_reader_output
-                            + "\n" + "\n"
-                            "Initial loading of the database has succeeded. Now you can ask anything related to the model\n"
-                            "Enter 'exit' to close the current session or 'reset' to reload the DB and restart the chat\n"
-                            "Enter 'cost' to know how much is the actual cost in dollars for all the request to the API\n")
+            db_reader_output
+            + "\n" + "\n"
+            + init_database_message)
 
     def send_message(self):
         content = self.input_entry.get()
         self.input_entry.delete(0, tk.END)
 
-        if content == "exit":
+        if content == "Exit" or content == "exit":
             self.openai_chat.close_session()
             self.destroy()
 
-        elif content == "reset":
+        elif content == "Reset" or content == "reset":
             response = self.openai_chat.reset_session([{"role": "system", "content": init_prompt}], self.db_content)
             if response == '1':
                 self.update_output("Reset session successfully\n")
             else:
                 self.update_output("Failed trying to reset the OpenAIChat\n")
 
-        elif content == "cost":
+        elif content == "Cost" or content == "cost":
             cost_message = f"Actual cost in dollars: {self.openai_chat.get_total_cost():.2f}\n"
             self.update_output(cost_message)
 
         else:
-            # response = self.openai_chat.get_response(content)
-            response = 'Respuesta ejemplo api'
-            self.update_output(response + "\n")
+            response = self.openai_chat.get_response(content)
+            # response = 'Respuesta ejemplo api'
+            formatted_json_string = response.replace(', "', ',\n "')
+            self.update_output(formatted_json_string + "\n")
 
     def update_output(self, text):
         # Limpiar el contenido existente
@@ -126,6 +127,11 @@ class ChatInterface(tk.Tk):
         self.output_text.insert(tk.END, text)
         # Asegurarse de que la nueva entrada sea visible
         self.output_text.see(tk.END)
+
+    def print_instructions(self):
+
+        self.update_output(instructions)
+
 
 if __name__ == "__main__":
     app = ChatInterface()

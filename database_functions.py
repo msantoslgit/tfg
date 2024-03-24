@@ -81,13 +81,13 @@ def read_db_txt_window(directory_path):
     concatenated_content = ""
 
     print_content = "List of files loaded are:"
-    print("List of files:")
+    # print("List of files:")
     # Iterate through all files in the directory
     for file_name in os.listdir(directory_path):
         # Check if the file has a .txt extension
         if file_name.endswith(".txt"):
 
-            print(file_name)
+            # print(file_name)
             print_content = print_content + '\n' + file_name
             # Build the full file path
             file_path = os.path.join(directory_path, file_name)
