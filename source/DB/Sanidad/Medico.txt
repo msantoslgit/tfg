@@ -1,0 +1,7 @@
+CREATE TABLE Medico (
+    medico_id INT PRIMARY KEY,
+    nombre VARCHAR(100),
+    especialidad VARCHAR(100),
+    hospital_id INT,
+    FOREIGN KEY (hospital_id) REFERENCES Hospital(hospital_id)
+);

@@ -1,0 +1,7 @@
+CREATE TABLE Visita_Tratamiento (
+    visita_id INT,
+    tratamiento_id INT,
+    PRIMARY KEY (visita_id, tratamiento_id),
+    FOREIGN KEY (visita_id) REFERENCES Visita(visita_id),
+    FOREIGN KEY (tratamiento_id) REFERENCES Tratamiento(tratamiento_id)
+);

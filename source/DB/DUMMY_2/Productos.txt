@@ -1,5 +1,0 @@
-CREATE TABLE productos (
-    id_producto INT PRIMARY KEY,
-    nombre_producto VARCHAR(255),
-    precio FLOAT
-);

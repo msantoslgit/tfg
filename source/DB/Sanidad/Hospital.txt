@@ -1,0 +1,6 @@
+CREATE TABLE Hospital (
+    hospital_id INT PRIMARY KEY,
+    nombre VARCHAR(100),
+    direccion VARCHAR(255),
+    telefono VARCHAR(20)
+);

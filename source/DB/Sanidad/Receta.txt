@@ -1,0 +1,7 @@
+CREATE TABLE Receta (
+    receta_id INT PRIMARY KEY,
+    visita_id INT,
+    medicamento VARCHAR(100),
+    dosis VARCHAR(50),
+    FOREIGN KEY (visita_id) REFERENCES Visita(visita_id)
+);

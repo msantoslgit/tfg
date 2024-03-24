@@ -1,0 +1,10 @@
+CREATE TABLE Visita (
+    visita_id INT PRIMARY KEY,
+    fecha DATE,
+    medico_id INT,
+    paciente_id INT,
+    enfermedad_id INT,
+    FOREIGN KEY (medico_id) REFERENCES Medico(medico_id),
+    FOREIGN KEY (paciente_id) REFERENCES Paciente(paciente_id),
+    FOREIGN KEY (enfermedad_id) REFERENCES Enfermedad(enfermedad_id)
+);

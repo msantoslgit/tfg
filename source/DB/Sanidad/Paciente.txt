@@ -1,0 +1,8 @@
+CREATE TABLE Paciente (
+    paciente_id INT PRIMARY KEY,
+    nombre VARCHAR(100),
+    fecha_nacimiento DATE,
+    genero CHAR(1),
+    direccion VARCHAR(255),
+    telefono VARCHAR(20)
+);
