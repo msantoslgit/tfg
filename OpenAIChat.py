@@ -45,7 +45,7 @@ class OpenAIChat:
         self.sql_query_checker = SQLQueryChecker
 
         content_value = conversation[0]["content"]
-        self.token_pricing.process_string(content_value, 2)
+        self.token_pricing.process_string(content_value, 1)
 
     def get_response(self, content):
         """

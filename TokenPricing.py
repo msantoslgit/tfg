@@ -103,12 +103,11 @@ class TokenPricing:
             self.add_cost(total_price)
 
             # Print the cost for this API call
-            print("The cost for this API call was: ")
-            print(round(total_price, 7))
+            # print("The cost for this API call was: ")
+            # print(round(total_price, 7))
+
         # elif call == 0:
         #     print("Add response had no cost, only increase the n_tokens")
-        # elif call == 2:
-        #     print("Innit the model had no cost, only increase the n_tokens")
 
     def print_total_cost(self):
         """

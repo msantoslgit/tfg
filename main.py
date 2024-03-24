@@ -111,7 +111,7 @@ class ChatInterface(tk.Tk):
                 self.update_output("Failed trying to reset the OpenAIChat\n")
 
         elif content == "Cost" or content == "cost":
-            cost_message = f"Actual cost in dollars: {self.openai_chat.get_total_cost():.2f}\n"
+            cost_message = f"Actual cost in dollars: {self.openai_chat.get_total_cost():.7f}\n"
             self.update_output(cost_message)
 
         else:
