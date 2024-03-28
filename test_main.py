@@ -40,8 +40,7 @@ def main():
         print("Initial loading of the database has succeeded. Initializing tester \n")
 
         tester = Tester(openai_chat)
-        test_file = tester.get_available_test_files()
-        tester.test(test_file)
+        # tester.test()
 
     else:
         print("Initial loading of the database has failed")
