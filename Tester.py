@@ -28,8 +28,8 @@ class Tester:
                     self.logger.write_log(f" Respuesta: {respuesta_esperada}")
                     self.logger.write_log(f"Dificultad: {dificultad}")
 
-                    # Aquí podrías hacer algo con las variables, como imprimir en pantalla
-                    # print(f"Pregunta: {pregunta}, Respuesta: {respuesta_esperada}, Dificultad: {dificultad}")
+                    response, query_corrected = self.openai_chat.handle_responses_window(pregunta)
+                    self.logger.write_log(f"Response: {query_corrected}")
 
         except FileNotFoundError:
             print(f"El archivo {self.test_file } no existe.")
@@ -77,7 +77,8 @@ class Tester:
         directorio, nombre_archivo = os.path.split(test_file)
 
         # Obtener la fecha actual en el formato deseado
-        fecha_actual = datetime.now().strftime('%d_%m_%Y')
+        # fecha_actual = datetime.now().strftime('%d_%m_%Y')
+        fecha_actual = datetime.now().strftime('%d_%m_%Y_%H_%M_%S')
 
         # Agregar la fecha al nombre del archivo
         nuevo_nombre_archivo = f"{fecha_actual}_{nombre_archivo}"

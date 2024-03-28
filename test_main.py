@@ -24,17 +24,17 @@ def main():
     db_content = read_db_txt(selected_db_directory)
     print(db_content)
 
-    openai_chat = None
+
     # Start the conversation with a system message
-    # init_conversation = [{"role": "system", "content": init_prompt}]
+    init_conversation = [{"role": "system", "content": init_prompt}]
 
     # Initialize the OpenAIChat class with the model, max_tokens, API_KEY, and the initial conversation
-    # openai_chat = OpenAIChat(api_key=API_KEY, conversation=init_conversation, model=model,
-    #                          max_tokens=max_tokens, price_per_token=price_per_token)
+    openai_chat = OpenAIChat(api_key=API_KEY, conversation=init_conversation, model=model,
+                             max_tokens=max_tokens, price_per_token=price_per_token)
 
     # Pass the loaded database content to the model
-    # response = openai_chat.get_response(db_content)
-    response = '1'
+    response = openai_chat.get_response(db_content)
+    # response = '1'
 
     if response == "1":
         print("Initial loading of the database has succeeded. Initializing tester \n")
