@@ -1,7 +1,8 @@
 import os
 import json
-import logging
+from Logger import Logger
 from datetime import datetime
+
 
 class Tester:
     def __init__(self, openai_chat):
@@ -11,28 +12,27 @@ class Tester:
 
         self.logger = Logger(self.log_file)
 
-    def test(self, test_file):
-
-
-        # Configura el logger
-        logging.basicConfig(filename='test_log.log', level=logging.INFO, format='%(asctime)s - %(message)s')
+    def test(self):
 
         try:
-            with open(test_file, 'r') as file:
+            with open(self.test_file , 'r') as file:
                 data = json.load(file)
                 preguntas_respuestas = data.get("preguntas_respuestas", [])
                 for pregunta_respuesta in preguntas_respuestas:
                     pregunta = pregunta_respuesta.get("pregunta", "")
-                    respuesta = pregunta_respuesta.get("respuesta", "")
+                    respuesta_esperada = pregunta_respuesta.get("respuesta", "")
                     dificultad = pregunta_respuesta.get("dificultad", "")
 
                     # Loguea las variables
-                    logging.info(f"Pregunta: {pregunta}, Respuesta: {respuesta}, Dificultad: {dificultad}")
+                    self.logger.write_log(f"Pregunta: {pregunta}")
+                    self.logger.write_log(f" Respuesta: {respuesta_esperada}")
+                    self.logger.write_log(f"Dificultad: {dificultad}")
 
                     # Aquí podrías hacer algo con las variables, como imprimir en pantalla
-                    print(f"Pregunta: {pregunta}, Respuesta: {respuesta}, Dificultad: {dificultad}")
+                    # print(f"Pregunta: {pregunta}, Respuesta: {respuesta_esperada}, Dificultad: {dificultad}")
+
         except FileNotFoundError:
-            print(f"El archivo {test_file} no existe.")
+            print(f"El archivo {self.test_file } no existe.")
 
     def get_available_test_files(self):
         # Obtén la ruta del directorio actual del script
@@ -88,14 +88,3 @@ class Tester:
         return nueva_ruta
 
 
-class Logger:
-    def __init__(self, file_path, level=logging.INFO, format='%(asctime)s - %(message)s'):
-        self.file_path = file_path
-        self.level = level
-        self.format = format
-
-        # Configurar el registro
-        logging.basicConfig(filename=self.file_path, level=self.level, format=self.format)
-
-    def write_log(self, message):
-        logging.info(message)
