@@ -1,4 +1,4 @@
-CREATE TABLE detallepedidos (
+CREATE TABLE pedidos_producto (
     id_detalle INT PRIMARY KEY,
     id_pedido INT,
     id_producto INT,

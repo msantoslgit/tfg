@@ -24,7 +24,7 @@ def pretty_print_json(json_string):
 
 
 class OpenAIChat:
-    def __init__(self, api_key, conversation, model="gpt-3.5-turbo", max_tokens=50, temperature=0.5, price_per_token=0):
+    def __init__(self, api_key, conversation, model="gpt-3.5-turbo", max_tokens=50, temperature=0.4, price_per_token=0):
         """
         Initializes the OpenAIChat object with the required parameters.
 
