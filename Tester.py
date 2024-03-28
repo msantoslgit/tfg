@@ -1,84 +1,49 @@
-# Libraries
-from openai import OpenAI
-
-# Files
-from component import API_KEY, init_prompt
-from OpenAIChat import OpenAIChat
-from TokenPricing import TokenPricing
-from database_functions import get_available_db_directories, read_db_txt
+import os
 
 
-def main():
+class Tester:
+    def __init__(self, openai_chat):
+        self.openai_chat = openai_chat
 
-    # Declaration of global variables
-    client = OpenAI(api_key=API_KEY)
-    model = "gpt-3.5-turbo"
-    max_tokens = 200
-    price_per_token = 0.002 / 1000
+    def test(self, test_file):
+        print(f"Testing {test_file}...")
 
-    # Usage of get_available_db_directories
-    selected_db_directory = get_available_db_directories()
-    print(f"Selected directory: {selected_db_directory}")
+    import os
 
-    # Usage of read_db_txt
-    db_content = read_db_txt(selected_db_directory)
-    print(db_content)
+    def get_available_test_files(self):
+        # Obtén la ruta del directorio actual del script
+        script_directory = os.path.dirname(os.path.abspath(__file__))
 
-    # # Example of using TokenPricing
-    # token_pricing = TokenPricing(max_tokens, price_per_token, model)
-    #
-    # num_tokens = token_pricing.num_tokens_from_string(init_prompt)
-    # total_price = token_pricing.total_price(num_tokens)
-    #
-    # print(f"Number of tokens: {num_tokens}")
-    # print(f"Total price: ${total_price}")
+        # Construye la ruta al directorio un nivel por encima
+        parent_directory = os.path.abspath(os.path.join(script_directory, ".."))
 
-    # Start the conversation with a system message
-    init_conversation = [{"role": "system", "content": init_prompt}]
+        # Construye la ruta al directorio que contiene los test
+        choices_directory = os.path.join(parent_directory, "tfg", "source", "test")
 
-    # Initialize the OpenAIChat class with the model, max_tokens, API_KEY, and the initial conversation
-    openai_chat = OpenAIChat(api_key=API_KEY, conversation=init_conversation, model=model,
-                             max_tokens=max_tokens, price_per_token=price_per_token)
+        # Lista los archivos disponibles en el directorio
+        available_files = [f for f in os.listdir(choices_directory) if
+                           os.path.isfile(os.path.join(choices_directory, f))]
 
-    # Pass the loaded database content to the model
-    response = openai_chat.get_response(db_content)
+        # Muestra los archivos disponibles por pantalla
+        print("Archivos disponibles:")
+        for index, file in enumerate(available_files, start=1):
+            print(f"{index}. {file}")
 
-    if response == "1":
-        print("Initial loading of the database has succeeded. Now you can ask anything related to the model \n")
-        print("Enter 'exit' to close the current session or 'reset' to reload the DB and restart the chat ")
-        print("Enter 'cost' to know how much is the actual cost in dollars for all the request to the API ")
-
+        # Pide al usuario que elija un archivo
         while True:
-            content = input(" ")
+            try:
+                selected_index = int(input("Selecciona un número correspondiente al archivo deseado: ")) - 1
 
-            if content == "exit":
-                openai_chat.close_session()
-                break
-
-            elif content == "reset":
-
-                response = openai_chat.reset_session([{"role": "system", "content": init_prompt}], db_content)
-
-                if response == '1':
-                    print("Reset session succesfully")
-                    continue
-                else:
-                    print("Failed triyng to reset the OpenAIChat")
+                # Verifica si el número ingresado es válido
+                if 0 <= selected_index < len(available_files):
+                    # Si el número es válido, salimos del bucle
                     break
+                else:
+                    print("Por favor, ingresa un número dentro del rango.")
+            except ValueError:
+                print("Por favor, ingresa un número entero.")
 
-            elif content == "cost":
-                openai_chat.print_total_cost()
-                continue
+        # Retorna la ruta del archivo seleccionado
+        selected_file = os.path.join(choices_directory, available_files[selected_index])
 
-            openai_chat.handle_responses(content)
-
-            # response = openai_chat.get_response(content)
-            # print(response)
-            # openai_chat.add_context_response(response)
-
-    else:
-        print("Initial loading of the database has failed")
-
-
-if __name__ == "__main__":
-    main()
+        return selected_file
