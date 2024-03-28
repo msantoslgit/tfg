@@ -28,6 +28,10 @@ init_database_message = "Initial loading of the database has succeeded. Now you 
                         "Enter 'cost' to know how much is the actual cost in dollars for all the request to the API\n" \
                         "Enter 'reset' to start again with the conversation\n"
 
+
+init_database_error_message = "Initial loading of the database has failed. The init database content is not a valid relational model"
+
+
 instructions = "Instructions:" \
                         "\n1. Insert the database-related query you have chosen." \
                         "\n2. Press the 'Send' button to submit the message." \

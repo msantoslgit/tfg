@@ -3,7 +3,7 @@ import tkinter as tk
 from openai import OpenAI
 from OpenAIChat import OpenAIChat
 from database_functions import read_db_txt_window
-from component import API_KEY, init_prompt, init_database_message, instructions
+from component import API_KEY, init_prompt, init_database_message, init_database_error_message, instructions
 from tkinter import Listbox, Scrollbar, END, VERTICAL, Y
 
 
@@ -76,6 +76,9 @@ class ChatInterface(tk.Tk):
                                       model=self.model, max_tokens=self.max_tokens,
                                       price_per_token=self.price_per_token)
 
+        # Cargamos la BD en el chat
+        response = self.openai_chat.get_response(self.db_content)
+
         # Crear elementos de la interfaz
         self.output_text = tk.Text(self, height=20, width=60)
         self.output_text.pack(expand=True, fill=tk.BOTH)  # Expandir tanto horizontal como verticalmente
@@ -89,11 +92,15 @@ class ChatInterface(tk.Tk):
         self.instructions_button = tk.Button(self, text="Instructions", command=self.print_instructions)
         self.instructions_button.pack(side=tk.RIGHT)  # Alinea el botón a la derecha
 
-        # Inicializar la interfaz
-        self.update_output(
-            db_reader_output
-            + "\n" + "\n"
-            + init_database_message)
+        if response == "1":
+            # Inicializar la interfaz
+            self.update_output(
+                db_reader_output
+                + "\n" + "\n"
+                + init_database_message)
+        else:
+            self.update_output(init_database_error_message)
+            exit(0)
 
     def send_message(self):
         content = self.input_entry.get()
