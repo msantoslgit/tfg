@@ -1,0 +1,29 @@
+{
+  "preguntas_respuestas": [
+    {
+      "pregunta": "¿Cuántos pacientes ha atendido el médico con el ID 5 en total?",
+      "respuesta": "SELECT COUNT(*) FROM Visita WHERE medico_id = 5;",
+      "dificultad": 2
+    },
+    {
+      "pregunta": "¿Cuál es el tratamiento más recetado en todas las visitas?",
+      "respuesta": "SELECT Tratamiento.nombre, COUNT(*) AS cantidad FROM Visita_Tratamiento JOIN Tratamiento ON Visita_Tratamiento.tratamiento_id = Tratamiento.tratamiento_id GROUP BY Visita_Tratamiento.tratamiento_id ORDER BY cantidad DESC LIMIT 1;",
+      "dificultad": 2
+    },
+    {
+      "pregunta": "¿Cuál es el nombre del médico que ha realizado más visitas?",
+      "respuesta": "SELECT Medico.nombre FROM Visita JOIN Medico ON Visita.medico_id = Medico.medico_id GROUP BY Visita.medico_id ORDER BY COUNT(*) DESC LIMIT 1;",
+      "dificultad": 2
+    },
+    {
+      "pregunta": "¿Cuál es el número total de pacientes atendidos en el hospital con el ID 4?",
+      "respuesta": "SELECT COUNT(DISTINCT paciente_id) FROM Visita WHERE medico_id IN (SELECT medico_id FROM Medico WHERE hospital_id = 4);",
+      "dificultad": 2
+    },
+    {
+      "pregunta": "¿Cuántos médicos distintos han atendido al paciente con el ID 8?",
+      "respuesta": "SELECT COUNT(DISTINCT medico_id) AS cantidad_medicos FROM Visita WHERE paciente_id = 8;",
+      "dificultad": 2
+    }
+  ]
+}
