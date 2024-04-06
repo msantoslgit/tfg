@@ -1,0 +1,29 @@
+{
+  "preguntas_respuestas": [
+    {
+      "pregunta": "¿Cuál es el médico que ha atendido al mayor número de pacientes diferentes?",
+      "respuesta": "SELECT Medico.nombre, COUNT(DISTINCT Visita.paciente_id) AS cantidad_pacientes FROM Visita JOIN Medico ON Visita.medico_id = Medico.medico_id GROUP BY Medico.medico_id ORDER BY cantidad_pacientes DESC LIMIT 1;",
+      "dificultad": 3
+    },
+    {
+      "pregunta": "¿Cuál es la edad promedio de los pacientes atendidos por el médico con el ID 8?",
+      "respuesta": "SELECT AVG(DATEDIFF(CURRENT_DATE(), fecha_nacimiento) / 365) AS edad_promedio FROM Paciente WHERE paciente_id IN (SELECT paciente_id FROM Visita WHERE medico_id = 8);",
+      "dificultad": 3
+    },
+    {
+      "pregunta": "¿Cuántos pacientes tienen más de 50 años y han sido atendidos por el médico con el ID 6?",
+      "respuesta": "SELECT COUNT(*) FROM (SELECT paciente_id FROM Paciente WHERE DATEDIFF(CURRENT_DATE(), fecha_nacimiento) / 365 > 50 AND paciente_id IN (SELECT paciente_id FROM Visita WHERE medico_id = 6)) AS pacientes_mayores;",
+      "dificultad": 3
+    },
+    {
+      "pregunta": "¿Cuál es el médico con la mayor cantidad de visitas en un solo día?",
+      "respuesta": "SELECT Medico.nombre, COUNT(*) AS cantidad_visitas FROM Visita JOIN Medico ON Visita.medico_id = Medico.medico_id GROUP BY Visita.medico_id, Visita.fecha HAVING COUNT(*) = (SELECT MAX(cantidad_visitas) FROM (SELECT COUNT(*) AS cantidad_visitas FROM Visita GROUP BY medico_id, fecha) AS temp);",
+      "dificultad": 3
+    },
+    {
+      "pregunta": "¿Cuál es el tratamiento más común para pacientes mayores de 60 años?",
+      "respuesta": "SELECT Tratamiento.nombre, COUNT(*) AS cantidad FROM Tratamiento JOIN Visita_Tratamiento ON Tratamiento.tratamiento_id = Visita_Tratamiento.tratamiento_id JOIN Visita ON Visita_Tratamiento.visita_id = Visita.visita_id JOIN Paciente ON Visita.paciente_id = Paciente.paciente_id WHERE DATEDIFF(CURRENT_DATE(), Paciente.fecha_nacimiento) / 365 > 60 GROUP BY Tratamiento.tratamiento_id ORDER BY cantidad DESC LIMIT 1;",
+      "dificultad": 3
+    }
+  ]
+}
