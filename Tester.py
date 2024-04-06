@@ -24,12 +24,13 @@ class Tester:
                     dificultad = pregunta_respuesta.get("dificultad", "")
 
                     # Loguea las variables
-                    self.logger.write_log(f"Pregunta: {pregunta}")
-                    self.logger.write_log(f" Respuesta: {respuesta_esperada}")
                     self.logger.write_log(f"Dificultad: {dificultad}")
+                    self.logger.write_log(f"Pregunta: {pregunta}")
+                    self.logger.write_log(f"Respuesta Esperada: {respuesta_esperada}")
+
 
                     response, query_corrected = self.openai_chat.handle_responses_window(pregunta)
-                    self.logger.write_log(f"Response: {query_corrected}")
+                    self.logger.write_log(f"IA Response: {query_corrected}")
 
         except FileNotFoundError:
             print(f"El archivo {self.test_file } no existe.")

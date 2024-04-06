@@ -1,0 +1,29 @@
+{
+  "preguntas_respuestas": [
+    {
+      "pregunta": "¿Cuál es el nombre del centro con el ID 3?",
+      "respuesta": "SELECT nombre_centro FROM Centros WHERE id_centro = 3;",
+      "dificultad": 1
+    },
+    {
+      "pregunta": "¿Cuál es el nombre del cliente con el ID 2?",
+      "respuesta": "SELECT nombre_cliente FROM clientes WHERE id_cliente = 2;",
+      "dificultad": 1
+    },
+    {
+      "pregunta": "¿Cuál es el precio del producto más barato en la tabla de productos?",
+      "respuesta": "SELECT nombre_producto, precio FROM productos ORDER BY precio ASC LIMIT 1;",
+      "dificultad": 1
+    },
+    {
+      "pregunta": "¿Cuántos productos distintos se pidieron en el pedido con ID 12?",
+      "respuesta": "SELECT COUNT(DISTINCT id_producto) FROM pedidos_producto WHERE id_pedido = 12;",
+      "dificultad": 1
+    },
+    {
+      "pregunta": "¿En qué fecha se realizó el pedido con ID 10?",
+      "respuesta": "SELECT fecha_pedido FROM pedidos WHERE id_pedido = 10;",
+      "dificultad": 1
+    }
+  ]
+}

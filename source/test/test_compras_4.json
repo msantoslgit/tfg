@@ -1,0 +1,29 @@
+{
+  "preguntas_respuestas": [
+    {
+      "pregunta": "¿Cual es el centro con más pedidos?",
+      "respuesta": "SELECT nombre_centro \nFROM centros \nWHERE id_centro = (\n    SELECT id_centro \n    FROM pedidos \n    GROUP BY id_centro \n    ORDER BY COUNT(*) DESC \n    LIMIT 1\n)",
+      "dificultad": 4
+    },
+    {
+      "pregunta": "¿En que centro hay la mayor cantidad de clientes realizando pedidos?",
+      "respuesta": "SELECT nombre_centro \nFROM centros \nWHERE id_centro = (\n    SELECT id_centro \n    FROM pedidos \n    GROUP BY id_centro \n    ORDER BY COUNT(DISTINCT id_cliente) DESC \n    LIMIT 1\n)",
+      "dificultad": 4
+    },
+    {
+      "pregunta": "¿Cuál es el nombre_cliente que ha gastado más dinero en total?",
+      "respuesta": "SELECT nombre_cliente FROM clientes WHERE id_cliente = (SELECT id_cliente FROM pedidos JOIN pedidos_producto ON pedidos.id_pedido = pedidos_producto.id_pedido JOIN productos ON pedidos_producto.id_producto = productos.id_producto GROUP BY id_cliente ORDER BY SUM(precio * cantidad) DESC LIMIT 1)",
+      "dificultad": 4
+    },
+    {
+      "pregunta": "¿Hay algún producto que haya sido comprado en todos los pedidos?",
+      "respuesta": "SELECT nombre_producto\nFROM productos\nWHERE id_producto IN (\n    SELECT id_producto\n    FROM pedidos_producto\n    GROUP BY id_producto\n    HAVING COUNT(DISTINCT id_pedido) = (\n        SELECT COUNT(DISTINCT id_pedido)\n        FROM pedidos\n    )\n)",
+      "dificultad": 4
+    },
+    {
+      "pregunta": "¿Cual es el cliente que tiene pedidos en mas centros diferentes?",
+      "respuesta": "SELECT nombre_cliente\nFROM clientes\nWHERE id_cliente = (\n    SELECT id_cliente\n    FROM pedidos\n    GROUP BY id_cliente\n    ORDER BY COUNT(DISTINCT id_centro) DESC\n    LIMIT 1\n)",
+      "dificultad": 4
+    }
+  ]
+}
