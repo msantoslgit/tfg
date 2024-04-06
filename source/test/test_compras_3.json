@@ -6,8 +6,8 @@
       "dificultad": 3
     },
     {
-      "pregunta": "¿Cuál es el nombre_cliente que más pedidos ha realizado?",
-      "respuesta": "SELECT nombre_cliente FROM clientes WHERE id_cliente = (SELECT id_cliente FROM pedidos GROUP BY id_cliente ORDER BY COUNT(*) DESC LIMIT 1);",
+      "pregunta": "¿Cuál es el producto más vendido sumando todas las cantidad de pedidos_producto?",
+      "respuesta": "SELECT p.nombre_producto, SUM(dp.cantidad) AS total_vendido FROM DetallePedidos dp INNER JOIN Productos p ON dp.id_producto = p.id_producto GROUP BY p.nombre_producto ORDER BY total_vendido DESC LIMIT 1;",
       "dificultad": 3
     },
     {
@@ -17,12 +17,12 @@
     },
     {
       "pregunta": "¿Cual es el nombre del cliente y el nombre del centro del pedido mas actual?",
-      "respuesta": "SELECT c.nombre_cliente, ce.nombre_centro\nFROM clientes c\nJOIN pedidos p ON c.id_cliente = p.id_cliente\nJOIN centros ce ON p.id_centro = ce.id_centro\nWHERE p.fecha_pedido = (\n    SELECT MAX(fecha_pedido)\n    FROM pedidos\n);",
+      "respuesta": "SELECT c.nombre_cliente, ce.nombre_centro FROM clientes c JOIN pedidos p ON c.id_cliente = p.id_cliente JOIN centros ce ON p.id_centro = ce.id_centro WHERE p.fecha_pedido = (    SELECT MAX(fecha_pedido)    FROM pedidos);",
       "dificultad": 3
     },
     {
       "pregunta": "¿Cuál es el nombre del centro con más pedidos realizados en el último mes?",
-      "respuesta": "SELECT nombre_centro \nFROM centros \nWHERE id_centro = (\n    SELECT id_centro \n    FROM pedidos \n    WHERE fecha_pedido >= DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH) \n    GROUP BY id_centro \n    ORDER BY COUNT(*) DESC \n    LIMIT 1\n);",
+      "respuesta": "SELECT nombre_centro FROM centros WHERE id_centro = (    SELECT id_centro     FROM pedidos     WHERE fecha_pedido >= DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)     GROUP BY id_centro     ORDER BY COUNT(*) DESC     LIMIT 1);",
       "dificultad": 3
     }
   ]
