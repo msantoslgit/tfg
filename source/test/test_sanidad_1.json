@@ -1,0 +1,29 @@
+{
+  "preguntas_respuestas": [
+    {
+      "pregunta": "¿Cuál es el nombre del hospital con el ID 2?",
+      "respuesta": "SELECT nombre FROM Hospital WHERE hospital_id = 2;",
+      "dificultad": 1
+    },
+    {
+      "pregunta": "¿Cuál es el nombre de la enfermedad con el ID 4?",
+      "respuesta": "SELECT nombre FROM Enfermedad WHERE enfermedad_id = 4;",
+      "dificultad": 1
+    },
+    {
+      "pregunta": "¿Cuál es el nombre del paciente con el ID 7?",
+      "respuesta": "SELECT nombre FROM Paciente WHERE paciente_id = 7;",
+      "dificultad": 1
+    },
+    {
+      "pregunta": "¿Cuál es la fecha de nacimiento del paciente con el ID 12?",
+      "respuesta": "SELECT fecha_nacimiento FROM Paciente WHERE paciente_id = 12;",
+      "dificultad": 1
+    },
+    {
+      "pregunta": "¿Cuál es la especialidad del médico con el ID 3?",
+      "respuesta": "SELECT especialidad FROM Medico WHERE medico_id = 3;",
+      "dificultad": 1
+    }
+  ]
+}
