@@ -1,13 +1,13 @@
 {
   "preguntas_respuestas": [
     {
-      "pregunta": "¿Cuál es el precio promedio de los productos en la tabla de productos?",
-      "respuesta": "SELECT AVG(precio) FROM productos;",
+      "pregunta": "¿Cuál es el nombre_producto que más cantidades ha vendido sumando todos los pedidos?",
+      "respuesta": "SELECT p.nombre_producto, SUM(dp.cantidad) AS total_vendido FROM DetallePedidos dp INNER JOIN Productos p ON dp.id_producto = p.id_producto GROUP BY p.nombre_producto ORDER BY total_vendido DESC LIMIT 1;",
       "dificultad": 3
     },
     {
-      "pregunta": "¿Cuál es el producto más vendido sumando todas las cantidad de pedidos_producto?",
-      "respuesta": "SELECT p.nombre_producto, SUM(dp.cantidad) AS total_vendido FROM DetallePedidos dp INNER JOIN Productos p ON dp.id_producto = p.id_producto GROUP BY p.nombre_producto ORDER BY total_vendido DESC LIMIT 1;",
+      "pregunta": "¿Cuál es el precio promedio de los productos en la tabla de productos?",
+      "respuesta": "SELECT AVG(precio) FROM productos;",
       "dificultad": 3
     },
     {
