@@ -21,7 +21,7 @@
       "dificultad": 3
     },
     {
-      "pregunta": "¿Cuál es el tratamiento más común para pacientes mayores de 60 años?",
+      "pregunta": "¿Cuál es el nombre del tratamiento que mas aparece en las visitas con pacientes mayores de 60 años?",
       "respuesta": "SELECT Tratamiento.nombre, COUNT(*) AS cantidad FROM Tratamiento JOIN Visita_Tratamiento ON Tratamiento.tratamiento_id = Visita_Tratamiento.tratamiento_id JOIN Visita ON Visita_Tratamiento.visita_id = Visita.visita_id JOIN Paciente ON Visita.paciente_id = Paciente.paciente_id WHERE DATEDIFF(CURRENT_DATE(), Paciente.fecha_nacimiento) / 365 > 60 GROUP BY Tratamiento.tratamiento_id ORDER BY cantidad DESC LIMIT 1;",
       "dificultad": 3
     }
