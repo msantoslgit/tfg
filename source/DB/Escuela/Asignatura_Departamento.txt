@@ -1,0 +1,7 @@
+CREATE TABLE Asignatura_Departamento (
+    asignatura_departamento_id INT PRIMARY KEY,
+    asignatura_id INT,
+    departamento_id INT,
+    FOREIGN KEY (asignatura_id) REFERENCES Asignatura(asignatura_id),
+    FOREIGN KEY (departamento_id) REFERENCES Departamento(departamento_id)
+);

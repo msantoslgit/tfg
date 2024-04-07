@@ -1,0 +1,6 @@
+CREATE TABLE Curso (
+    curso_id INT PRIMARY KEY,
+    nombre VARCHAR(100),
+    nivel VARCHAR(10),
+    año_escolar INT
+);

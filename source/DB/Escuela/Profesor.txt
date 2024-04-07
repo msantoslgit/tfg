@@ -1,0 +1,9 @@
+CREATE TABLE Profesor (
+    profesor_id INT PRIMARY KEY,
+    nombre VARCHAR(100),
+    especialidad VARCHAR(100),
+    fecha_contratacion DATE,
+    salario DECIMAL(10, 2),
+    direccion VARCHAR(255),
+    telefono VARCHAR(20)
+);

@@ -1,0 +1,29 @@
+{
+  "preguntas_respuestas": [
+    {
+      "pregunta": "¿Cuál es el nombre del alumno con el ID 3?",
+      "respuesta": "SELECT nombre FROM Alumno WHERE alumno_id = 3;",
+      "dificultad": 1
+    },
+    {
+      "pregunta": "¿Cuál es la especialidad del profesor con el ID 5?",
+      "respuesta": "SELECT especialidad FROM Profesor WHERE profesor_id = 5;",
+      "dificultad": 1
+    },
+    {
+      "pregunta": "¿Cuál es el nombre del curso con el ID 2?",
+      "respuesta": "SELECT nombre FROM Curso WHERE curso_id = 2;",
+      "dificultad": 1
+    },
+    {
+      "pregunta": "¿Cuál es la capacidad del aula con el ID 7?",
+      "respuesta": "SELECT capacidad FROM Aula WHERE aula_id = 7;",
+      "dificultad": 1
+    },
+    {
+      "pregunta": "¿Cuál es el nombre de la asignatura con el ID 4?",
+      "respuesta": "SELECT nombre FROM Asignatura WHERE asignatura_id = 4;",
+      "dificultad": 1
+    }
+  ]
+}

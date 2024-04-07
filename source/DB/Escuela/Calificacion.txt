@@ -1,0 +1,8 @@
+CREATE TABLE Calificacion (
+    calificacion_id INT PRIMARY KEY,
+    alumno_id INT,
+    asignatura_id INT,
+    nota DECIMAL(5, 2),
+    FOREIGN KEY (alumno_id) REFERENCES Alumno(alumno_id),
+    FOREIGN KEY (asignatura_id) REFERENCES Asignatura(asignatura_id)
+);

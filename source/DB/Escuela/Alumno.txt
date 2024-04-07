@@ -1,0 +1,7 @@
+CREATE TABLE Alumno (
+    alumno_id INT PRIMARY KEY,
+    nombre VARCHAR(100),
+    fecha_nacimiento DATE,
+    direccion VARCHAR(255),
+    telefono VARCHAR(20)
+);

@@ -1,0 +1,29 @@
+{
+  "preguntas_respuestas": [
+    {
+      "pregunta": "¿Cuántos alumnos están matriculados en el curso con el ID 4?",
+      "respuesta": "SELECT COUNT(*) FROM Matricula WHERE curso_id = 4;",
+      "dificultad": 2
+    },
+    {
+      "pregunta": "¿Cuántos profesores hay en el departamento con el ID 3?",
+      "respuesta": "SELECT COUNT(*) FROM Profesor WHERE profesor_id IN (SELECT profesor_id FROM Asignatura_Departamento WHERE departamento_id = 3);",
+      "dificultad": 2
+    },
+    {
+      "pregunta": "¿Cuál es el nombre del profesor que imparte la asignatura con el ID 6?",
+      "respuesta": "SELECT Profesor.nombre FROM Profesor JOIN Horario ON Profesor.profesor_id = Horario.profesor_id WHERE Horario.asignatura_id = 6;",
+      "dificultad": 2
+    },
+    {
+      "pregunta": "¿Cuántas asignaturas diferentes se imparten en el curso con el ID 5?",
+      "respuesta": "SELECT COUNT(DISTINCT asignatura_id) FROM Asignatura_Curso WHERE curso_id = 5;",
+      "dificultad": 2
+    },
+    {
+      "pregunta": "¿Cuál es el horario de la asignatura con el ID 9?",
+      "respuesta": "SELECT dia_semana, hora_inicio, hora_fin FROM Horario WHERE asignatura_id = 9;",
+      "dificultad": 2
+    }
+  ]
+}
