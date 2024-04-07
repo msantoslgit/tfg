@@ -1,0 +1,29 @@
+{
+  "preguntas_respuestas": [
+    {
+      "pregunta": "¿Cuál es el promedio de calificaciones del alumno con el ID 8 en todas las asignaturas?",
+      "respuesta": "SELECT AVG(nota) AS promedio FROM Calificacion WHERE alumno_id = 8;",
+      "dificultad": 3
+    },
+    {
+      "pregunta": "¿Cuántos cursos tiene asignados el profesor con el ID 5?",
+      "respuesta": "SELECT COUNT(DISTINCT curso_id) AS cantidad_cursos FROM Horario WHERE profesor_id = 5;",
+      "dificultad": 3
+    },
+    {
+      "pregunta": "¿Cuántos alumnos hay en el curso con el ID 6 que no tienen calificaciones registradas?",
+      "respuesta": "SELECT COUNT(*) FROM Matricula WHERE curso_id = 6 AND alumno_id NOT IN (SELECT DISTINCT alumno_id FROM Calificacion);",
+      "dificultad": 3
+    },
+    {
+      "pregunta": "¿Cuál es el curso con la mayor cantidad de alumnos matriculados?",
+      "respuesta": "SELECT curso_id, COUNT(*) AS cantidad_alumnos FROM Matricula GROUP BY curso_id ORDER BY cantidad_alumnos DESC LIMIT 1;",
+      "dificultad": 3
+    },
+    {
+      "pregunta": "¿Cuál es la edad promedio de los alumnos matriculados en el curso con el ID 7?",
+      "respuesta": "SELECT AVG(DATEDIFF(CURRENT_DATE(), fecha_nacimiento) / 365) AS edad_promedio FROM Alumno WHERE alumno_id IN (SELECT alumno_id FROM Matricula WHERE curso_id = 7);",
+      "dificultad": 3
+    }
+  ]
+}
