@@ -1,0 +1,29 @@
+{
+  "preguntas_respuestas": [
+    {
+      "pregunta": "¿Cuál es el promedio de calificaciones de cada asignatura en el curso con el ID 8?",
+      "respuesta": "SELECT Asignatura.nombre, AVG(Calificacion.nota) AS promedio_calificaciones FROM Asignatura JOIN Calificacion ON Asignatura.asignatura_id = Calificacion.asignatura_id WHERE Calificacion.alumno_id IN (SELECT alumno_id FROM Matricula WHERE curso_id = 8) GROUP BY Asignatura.asignatura_id;",
+      "dificultad": 4
+    },
+    {
+      "pregunta": "¿Cuál es la asignatura con la mayor variabilidad de calificaciones (desviación estándar) en el curso con el ID 9?",
+      "respuesta": "SELECT Asignatura.asignatura_id, Asignatura.nombre, STDDEV(Calificacion.nota) AS desviacion_estandar FROM Asignatura JOIN Calificacion ON Asignatura.asignatura_id = Calificacion.asignatura_id WHERE Calificacion.alumno_id IN (SELECT alumno_id FROM Matricula WHERE curso_id = 9) GROUP BY Asignatura.asignatura_id ORDER BY desviacion_estandar DESC LIMIT 1;",
+      "dificultad": 4
+    },
+     {
+      "pregunta": "¿Cuál es el porcentaje de alumnos que obtuvieron una calificación superior a 7 en todas las asignaturas en el último año escolar?",
+      "respuesta": "SELECT (COUNT(DISTINCT alumno_id) / (SELECT COUNT(DISTINCT alumno_id) FROM Matricula WHERE YEAR(fecha_matricula) = YEAR(CURRENT_DATE()))) * 100 AS porcentaje_aprobacion FROM Calificacion WHERE nota > 7 AND YEAR(fecha_calificacion) = YEAR(CURRENT_DATE());",
+      "dificultad": 4
+    },
+    {
+      "pregunta": "¿Cuántos alumnos tienen un promedio de calificación superior a 8 en todas las asignaturas en las que están matriculados?",
+      "respuesta": "SELECT COUNT(*) FROM (SELECT alumno_id, AVG(nota) AS promedio FROM Calificacion WHERE alumno_id IN (SELECT alumno_id FROM Matricula) GROUP BY alumno_id HAVING MIN(nota) > 8) AS alumnos_con_promedio_superior_a_8;",
+      "dificultad": 4
+    },
+    {
+      "pregunta": "¿Cuál es el día de la semana con mayor cantidad de horas de clases para el curso con el ID 11?",
+      "respuesta": "SELECT dia_semana, SUM(TIMESTAMPDIFF(HOUR, hora_inicio, hora_fin)) AS total_horas FROM Horario WHERE curso_id = 11 GROUP BY dia_semana ORDER BY total_horas DESC LIMIT 1;",
+      "dificultad": 4
+    }
+  ]
+}
