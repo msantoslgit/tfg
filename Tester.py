@@ -15,7 +15,7 @@ class Tester:
     def test(self):
 
         try:
-            with open(self.test_file , 'r') as file:
+            with open(self.test_file, 'r') as file:
                 data = json.load(file)
                 preguntas_respuestas = data.get("preguntas_respuestas", [])
                 for pregunta_respuesta in preguntas_respuestas:
@@ -73,6 +73,8 @@ class Tester:
 
         return selected_file
 
+
+
     def generate_log_file(self, test_file):
         # Obtener la ruta del directorio y el nombre del archivo
         directorio, nombre_archivo = os.path.split(test_file)
@@ -87,6 +89,19 @@ class Tester:
         # Combinar el directorio del log con el nuevo nombre del archivo
         nueva_ruta = os.path.join(directorio.replace('test', 'log'), nuevo_nombre_archivo)
 
+        print(nueva_ruta)
+
+        nueva_ruta = self.cambiar_extension(nueva_ruta)
+
+        print(nueva_ruta)
+
         return nueva_ruta
 
+    def cambiar_extension(self, path):
+        # Obtener el directorio y el nombre del archivo sin la extensión
+        directorio, nombre_archivo = os.path.split(path)
+        nombre_base, _ = os.path.splitext(nombre_archivo)
 
+        # Construir el nuevo path con la extensión cambiada
+        nuevo_path = os.path.join(directorio, nombre_base + '.txt')
+        return nuevo_path
